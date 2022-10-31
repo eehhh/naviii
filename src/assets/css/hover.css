@@ -1,0 +1,95 @@
+.icon-zoom-in {
+  transition: all 0.5s;
+}
+.icon-zoom-in:hover {
+  transform: scale(1.5);
+  transition: all 0.5s;
+}
+
+@keyframes flow {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+    transform: translateY(1em);
+  }
+  60% {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.icon-flow:hover {
+  animation: 1s flow linear;
+}
+
+@keyframes rotate {
+  0% {
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.icon-rotate:hover {
+  animation: 2s rotate linear infinite;
+}
+
+@keyframes wobble-vertical {
+  16.65% {
+    transform: translateY(8px);
+  }
+  33.3% {
+    transform: translateY(-6px);
+  }
+  49.95% {
+    transform: translateY(4px);
+  }
+  66.6% {
+    transform: translateY(-2px);
+  }
+  83.25% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.icon-wobble-vertical:hover {
+  animation: 1s wobble-vertical linear;
+}
+
+@keyframes swing {
+  15% {
+    transform: translateX(5px);
+  }
+  40% {
+    transform: translateX(-5px);
+  }
+  65% {
+    transform: translateX(2px);
+  }
+  85% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.icon-swing:hover {
+  animation: 1s swing linear;
+}
+
+.icon-rotateY:hover {
+  transform: rotateY(360deg);
+  transition: all 1s;
+}
+
+.icon-open-folder::after {
+  content: "📁";
+}
+.icon-open-folder:hover::after {
+  content: "📂";
+}
