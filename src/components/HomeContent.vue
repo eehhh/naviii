@@ -151,9 +151,6 @@ function handleBeforeunload() {
 </template>
 
 <style scoped>
-.content {
-  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
-}
 .search-input {
   margin-bottom: 24px;
 }

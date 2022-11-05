@@ -3,7 +3,7 @@ import { h, ref, computed } from "vue";
 import { NLayoutSider, NMenu, NDrawer } from "naive-ui";
 import type { MenuOption } from "naive-ui";
 import SettingPage from "@/components/SettingPage.vue";
-import { fixedMenuOptions, settingPageWidth } from "@/assets/ts/custom";
+import { fixedMenuOptions, settingPageWidth, contentTheme } from "@/assets/ts/custom";
 import { getMenuOptins } from "@/assets/ts/utils";
 import { LocalDB } from "@/assets/ts/db";
 import { store } from "@/store";
@@ -56,6 +56,11 @@ function handleMenuValueUpdate(key: string, option: MenuOption) {
     bordered
     show-trigger
     collapse-mode="width"
+    :style="{
+      'background-image': store.isDarkTheme
+        ? contentTheme.dark
+        : contentTheme.light,
+    }"
     :native-scrollbar="false"
     :collapsed-width="50"
     :width="200"
@@ -76,3 +81,14 @@ function handleMenuValueUpdate(key: string, option: MenuOption) {
     </n-drawer>
   </n-layout-sider>
 </template>
+
+<style scoped>
+.n-layout-sider {
+  --n-border-color: rgba(255, 255, 255, 0.05) !important;
+}
+.n-menu {
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+</style>
