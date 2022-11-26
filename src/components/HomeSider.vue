@@ -3,7 +3,11 @@ import { h, ref, computed } from "vue";
 import { NLayoutSider, NMenu, NDrawer } from "naive-ui";
 import type { MenuOption } from "naive-ui";
 import SettingPage from "@/components/SettingPage.vue";
-import { fixedMenuOptions, settingPageWidth, contentTheme } from "@/assets/ts/custom";
+import {
+  fixedMenuOptions,
+  settingPageWidth,
+  contentTheme,
+} from "@/assets/ts/custom";
 import { getMenuOptins } from "@/assets/ts/utils";
 import { LocalDB } from "@/assets/ts/db";
 import { store } from "@/store";
