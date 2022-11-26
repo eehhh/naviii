@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NConfigProvider, darkTheme, zhCN, dateZhCN } from "naive-ui";
+import { NGlobalStyle, NConfigProvider, darkTheme, zhCN, dateZhCN } from "naive-ui";
 import HomePage from "@/components/HomePage.vue";
 import { store } from "@/store";
 </script>
@@ -11,6 +11,7 @@ import { store } from "@/store";
     :theme="store.isDarkTheme ? darkTheme : null"
   >
     <HomePage />
+    <n-global-style />
   </n-config-provider>
 </template>
 
