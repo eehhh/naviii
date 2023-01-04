@@ -6,6 +6,7 @@ import defaultEnginesMap from "@/assets/config/search.json";
 import defaultBookMarks from "@/assets/config/bookmarks.json";
 
 // PC
+let showSider = true;
 let itemIconSize = 80;
 let itemTitleSize = 20;
 let settingPageWidth = 450;
@@ -62,6 +63,7 @@ const fixedMenuOptions = (isDarkTheme: boolean): MenuOption[] => {
 const client = getUserClientType();
 if (client == "MOBILE") {
   setMobileValues();
+  showSider = false;
 }
 
 export {
@@ -79,4 +81,5 @@ export {
   defaultEngineKey,
   searchJump,
   openBookMarkJump,
+  showSider,
 };

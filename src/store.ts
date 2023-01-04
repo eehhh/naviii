@@ -1,5 +1,6 @@
 import { reactive } from "vue";
 import {
+  showSider as defaultShowSider,
   iconAPI as defaultIconAPI,
   bookMarks as defaultBookMarks,
   searchJump as defaultSearchJump,
@@ -16,6 +17,8 @@ const searchJump = db.searchJump;
 const openBookMarkJump = db.openBookMarkJump;
 const searchEngine = db.searchEngine;
 const isDarkTheme = db.theme == "dark" ? true : false;
+const showSider = defaultShowSider;
+const showSettingPage = false;
 const bookMarks =
   userbookMarks && typeof userbookMarks != "string"
     ? userbookMarks
@@ -25,6 +28,11 @@ export const store = reactive({
   iconAPI: iconAPI ? iconAPI : defaultIconAPI,
   bookMarks: bookMarks,
   isDarkTheme: isDarkTheme,
+  showSider: showSider,
+  showSettingPage: showSettingPage,
+  changeSiderVisible() {
+    this.showSider = !this.showSider;
+  },
   changeTheme() {
     this.isDarkTheme = !this.isDarkTheme;
   },

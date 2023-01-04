@@ -4,6 +4,7 @@ import { NInput } from "naive-ui";
 import { store } from "@/store";
 import { LocalDB } from "@/assets/ts/db";
 import { getSearchEngine, omniSearch } from "@/assets/ts/search";
+import HomeMegicButton from "@/components/HomeMagicButton.vue";
 
 const db = new LocalDB();
 let searchRef = ref<HTMLElement | null>(null);
@@ -23,7 +24,6 @@ function focusSearchInput(e: KeyboardEvent) {
     }
   }
 }
-
 function changeSearchEngine(value: string) {
   let { key, label } = getSearchEngine(value);
   searchEngine.key = key;
@@ -66,6 +66,7 @@ function handleBeforeunload() {
         </template>
       </n-input>
     </div>
+    <HomeMegicButton />
   </div>
 </template>
 
@@ -82,9 +83,9 @@ function handleBeforeunload() {
   backdrop-filter: blur(10px);
 }
 .search-wrapper {
-  width: 100%;
-  padding-left: 24px;
-  padding-right: 24px;
+  width: 400px;
+  padding-left: 25px;
+  padding-right: 5px;
 }
 .search-prefix {
   color: rgba(0, 0, 0, 0.5);

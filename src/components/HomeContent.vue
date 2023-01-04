@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { NGrid, NGridItem, NLayoutContent, NCard } from "naive-ui";
+import { NGrid, NGridItem, NLayoutContent, NCard, NDrawer } from "naive-ui";
 import HomeCardItem from "@/components/HomeCardItem.vue";
 import HomeContentBar from "@/components/HomeContentBar.vue";
+import SettingPage from "@/components/SettingPage.vue";
 import {
   itemCols,
   contentTheme,
   firstCardTitle,
   cardTitlePrefix,
+  settingPageWidth,
 } from "@/assets/ts/custom";
 import type { BookMarks, oneBookMark, mutiBookMark } from "@/assets/ts/types";
 import { store } from "@/store";
@@ -92,6 +94,9 @@ const bookMarks = computed(() => {
       </n-card>
     </div>
   </n-layout-content>
+  <n-drawer v-model:show="store.showSettingPage" :width="settingPageWidth">
+    <SettingPage />
+  </n-drawer>
 </template>
 
 <style scoped>
