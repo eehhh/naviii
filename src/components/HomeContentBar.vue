@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { StyleValue } from "vue";
 import { ref, reactive, onMounted } from "vue";
 import { NInput } from "naive-ui";
 import { store } from "@/store";
@@ -10,10 +11,26 @@ const db = new LocalDB();
 let searchRef = ref<HTMLElement | null>(null);
 let searchEngine = reactive(store.searchEngine);
 let searchContent = ref("");
+
+const props = defineProps<{
+  sticky: boolean;
+}>();
+
 onMounted(() => {
   addEventListener("keyup", focusSearchInput);
   addEventListener("beforeunload", handleBeforeunload);
 });
+
+const stickyBar: StyleValue = {
+  top: "0px",
+  position: "sticky",
+  background: "rgba(255, 255, 255, 0.3)",
+  "backdrop-filter": "blur(10px)",
+};
+const relativeBar: StyleValue = {
+  top: "10px",
+  position: "relative",
+};
 
 function focusSearchInput(e: KeyboardEvent) {
   // console.log(e);
@@ -24,11 +41,13 @@ function focusSearchInput(e: KeyboardEvent) {
     }
   }
 }
+
 function changeSearchEngine(value: string) {
   let { key, label } = getSearchEngine(value);
   searchEngine.key = key;
   searchEngine.label = label;
 }
+
 function handleKeyup(e: KeyboardEvent) {
   // console.log(e);
   if (e.code == "Space" || e.key == "Unidentified") {
@@ -37,13 +56,14 @@ function handleKeyup(e: KeyboardEvent) {
     omniSearch(searchEngine.key, searchContent.value);
   }
 }
+
 function handleBeforeunload() {
   db.searchEngine = searchEngine;
 }
 </script>
 
 <template>
-  <div class="content-bar">
+  <div :style="props.sticky ? stickyBar : relativeBar" class="content-bar">
     <div class="search-wrapper">
       <n-input
         ref="searchRef"
@@ -71,16 +91,18 @@ function handleBeforeunload() {
 </template>
 
 <style scoped>
-.content-bar {
+.sticky-bar {
   top: 0px;
-  height: 80px;
-  z-index: 999;
   position: sticky;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+}
+.content-bar {
+  display: flex;
+  height: 80px;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
 }
 .search-wrapper {
   width: 400px;

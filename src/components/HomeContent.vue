@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { NGrid, NGridItem, NLayoutContent, NCard, NDrawer } from "naive-ui";
 import HomeCardItem from "@/components/HomeCardItem.vue";
 import HomeContentBar from "@/components/HomeContentBar.vue";
@@ -14,6 +14,7 @@ import {
 import type { BookMarks, oneBookMark, mutiBookMark } from "@/assets/ts/types";
 import { store } from "@/store";
 
+const showStickyBar = ref(false);
 const itemTitle = (item: BookMarks) => {
   return (item.menuIcon ? item.menuIcon : cardTitlePrefix) + " " + item.title;
 };
@@ -36,6 +37,16 @@ const bookMarks = computed(() => {
     folder: folder,
   };
 });
+
+function handleScroll(e: Event) {
+  const el = e.target as Element;
+  const scrollTop = el.scrollTop;
+  if (scrollTop > 25) {
+    showStickyBar.value = true;
+  } else {
+    showStickyBar.value = false;
+  }
+}
 </script>
 
 <template>
@@ -47,8 +58,9 @@ const bookMarks = computed(() => {
         : contentTheme.light,
     }"
     :native-scrollbar="false"
+    @scroll="handleScroll"
   >
-    <HomeContentBar />
+    <HomeContentBar :sticky="showStickyBar" />
     <div class="card-wrapper">
       <n-card
         class="card"
