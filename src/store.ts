@@ -35,6 +35,7 @@ export const store = reactive({
   },
   changeTheme() {
     this.isDarkTheme = !this.isDarkTheme;
+    db.theme = this.isDarkTheme ? "dark" : "light";
   },
   searchJump: searchJump ? searchJump : defaultSearchJump,
   openBookMarkJump: openBookMarkJump
@@ -50,6 +51,7 @@ export const store = reactive({
     } else {
       this.iconAPI = defaultIconAPI;
     }
+    db.iconAPI = this.iconAPI;
   },
   setBookMarks(content: string) {
     if (content) {
@@ -58,11 +60,14 @@ export const store = reactive({
     } else {
       this.bookMarks = defaultBookMarks;
     }
+    db.bookMarks = this.bookMarks;
   },
   setSearchJump(value: string) {
     this.searchJump = value;
+    db.searchJump = this.searchJump;
   },
   setOpenBookMarkJump(value: string) {
     this.openBookMarkJump = value;
+    db.openBookMarkJump = this.openBookMarkJump;
   },
 });

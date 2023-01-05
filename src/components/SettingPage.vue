@@ -54,16 +54,12 @@ function saveData() {
     if (inputIconAPI.value == "") {
       inputIconAPI.value = store.iconAPI;
     }
-    db.iconAPI = inputIconAPI.value;
     store.setBookMarks(inputBookMarks.value);
-    db.bookMarks = store.bookMarks;
     if (inputBookMarks.value == "") {
       inputBookMarks.value = JSON.stringify(store.bookMarks, null, 2);
     }
     store.setSearchJump(searchSelectValue.value);
-    db.searchJump = searchSelectValue.value;
     store.setOpenBookMarkJump(openSelectValue.value);
-    db.openBookMarkJump = openSelectValue.value;
     message.success("保存成功！");
   } catch {
     message.success("保存失败！");
