@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { NGrid, NGridItem, NLayoutContent, NCard, NDrawer } from "naive-ui";
+import {
+  NGrid,
+  NGridItem,
+  NLayoutContent,
+  NCard,
+  NDrawer,
+  NButton,
+} from "naive-ui";
 import HomeCardItem from "@/components/HomeCardItem.vue";
 import HomeContentBar from "@/components/HomeContentBar.vue";
 import SettingPage from "@/components/SettingPage.vue";
@@ -46,6 +53,10 @@ function handleScroll(e: Event) {
   } else {
     showStickyBar.value = false;
   }
+}
+
+function openProject() {
+  window.open("https://github.com/eehhh/naviii");
 }
 </script>
 
@@ -105,6 +116,18 @@ function handleScroll(e: Event) {
         </n-grid>
       </n-card>
     </div>
+    <span class="footer">
+      <n-button
+        class="project"
+        strong
+        secondary
+        type="tertiary"
+        size="large"
+        @click="openProject"
+      >
+        Powered by 🛰️naviii
+      </n-button>
+    </span>
   </n-layout-content>
   <n-drawer v-model:show="store.showSettingPage" :width="settingPageWidth">
     <SettingPage />
@@ -120,5 +143,14 @@ function handleScroll(e: Event) {
   margin-bottom: 24px;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+}
+.footer {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  bottom: 15px;
+}
+.project {
+  font-size: 16px;
 }
 </style>
