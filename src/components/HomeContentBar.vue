@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { StyleValue } from "vue";
 import { ref, reactive, onMounted } from "vue";
-import { NInput } from "naive-ui";
+import { NInput, NPopover, NSpace, NTooltip, NButton } from "naive-ui";
 import { store } from "@/store";
 import { LocalDB } from "@/assets/ts/db";
+import { enginesMap } from "@/assets/ts/custom";
 import { getSearchEngine, omniSearch } from "@/assets/ts/search";
 import HomeMegicButton from "@/components/HomeMagicButton.vue";
 
@@ -11,6 +12,11 @@ const db = new LocalDB();
 let searchRef = ref<HTMLElement | null>(null);
 let searchEngine = reactive(store.searchEngine);
 let searchContent = ref("");
+
+const itemTooltip: StyleValue = {
+  marginLeft: "20px",
+  width: "max-content",
+};
 
 const props = defineProps<{
   sticky: boolean;
@@ -75,7 +81,32 @@ function handleBeforeunload() {
         @keyup="handleKeyup"
       >
         <template #prefix>
-          <span class="search-prefix">{{ searchEngine.label }}</span>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <span class="search-prefix">{{ searchEngine.label }}</span>
+            </template>
+            <n-space vertical>
+              <n-tooltip
+                :style="itemTooltip"
+                placement="right"
+                :show-arrow="false"
+                trigger="hover"
+                v-for="(v, k) in enginesMap"
+                :key="k"
+              >
+                <template #trigger>
+                  <n-button
+                    dashed
+                    style="width: 125px"
+                    @click="changeSearchEngine(k as string)"
+                  >
+                    {{ v[0] }}
+                  </n-button>
+                </template>
+                输入关键字"{{ k }}"+空格切换
+              </n-tooltip>
+            </n-space>
+          </n-popover>
         </template>
         <template #suffix>
           <span
@@ -111,6 +142,7 @@ function handleBeforeunload() {
 }
 .search-prefix {
   color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 .search-icon:hover {
   cursor: pointer;
