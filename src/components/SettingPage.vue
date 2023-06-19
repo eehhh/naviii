@@ -45,8 +45,10 @@ let openSelectOptions = [
   },
 ];
 
-function saveData() {
+const saveData = () => {
   try {
+    store.setSearchJump(searchSelectValue.value);
+    store.setOpenBookMarkJump(openSelectValue.value);
     if (inputIconAPI.value[inputIconAPI.value.length - 1] != "/") {
       inputIconAPI.value += "/";
     }
@@ -54,59 +56,70 @@ function saveData() {
     if (inputIconAPI.value == "") {
       inputIconAPI.value = store.iconAPI;
     }
-    store.setBookMarks(inputBookMarks.value);
+    try {
+      store.setBookMarks(inputBookMarks.value);
+    } catch (e) {
+      const msg = "保存失败！书签Json数据格式错误：" + e;
+      console.log(msg);
+      message.error(msg, {
+        duration: 8000,
+      });
+      return;
+    }
     if (inputBookMarks.value == "") {
       inputBookMarks.value = JSON.stringify(store.bookMarks, null, 2);
     }
-    store.setSearchJump(searchSelectValue.value);
-    store.setOpenBookMarkJump(openSelectValue.value);
     message.success("保存成功！");
-  } catch {
-    message.success("保存失败！");
+  } catch (e) {
+    const msg = "保存失败！" + e;
+    console.log(msg);
+    message.error(msg, {
+      duration: 8000,
+    });
   }
-}
+};
 
-function clearData() {
+const clearData = () => {
   db.clear();
-  message.success("数据已清除 即将刷新页面！");
+  message.success("数据已清除！即将刷新页面~");
   setTimeout(() => {
     location.reload();
   }, 3000);
-}
+};
 
-function exportData() {
+const exportData = () => {
   db.exportToJson();
-}
+};
 
-function importData(fileList: UploadFileInfo[]) {
+const importData = (fileList: UploadFileInfo[]) => {
   if (fileList.length && fileList[0].file) {
     const file = fileList[0].file;
     const reader = new FileReader();
     reader.readAsText(file, "UTF-8");
-    reader.onload = function () {
+    reader.onload = () => {
       if (typeof reader.result == "string") {
         try {
           let data = JSON.parse(reader.result);
           for (let key in data) {
             if (db.keys.includes(key)) {
-              // console.log(key, data[key])
               db.setItem(key, data[key]);
             }
           }
-          message.success("数据导入成功 即将刷新页面！");
+          message.success("数据导入成功！即将刷新页面~");
           setTimeout(() => {
             location.reload();
           }, 3000);
         } catch (e) {
-          console.log("Error:", e);
-          message.error("数据导入失败！\n" + e, {
-            duration: 10000,
+          const msg = "数据导入失败！" + e;
+          console.log(msg);
+          message.error(msg, {
+            duration: 8000,
           });
         }
       }
     };
   }
-}
+};
 </script>
 
 <template>

@@ -1,9 +1,9 @@
-import { createApp } from "vue";
 import App from "./App.vue";
-import "@/assets/css/hover.css";
+import { createApp } from "vue";
 import { basicSetup } from "codemirror";
 import { json } from "@codemirror/lang-json";
 import VueCodemirror from "vue-codemirror";
+import "@/assets/css/hover.css";
 
 const app = createApp(App);
 

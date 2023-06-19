@@ -1,20 +1,23 @@
 import { h } from "vue";
 import type { MenuOption } from "naive-ui";
-import type { BookMarks } from "@/assets/ts/types";
 
-function downloadFile(content: string, fileName: string, contentType: string) {
+const downloadFile = (
+  content: string,
+  fileName: string,
+  contentType: string
+) => {
   const a = document.createElement("a");
   const file = new Blob([content], { type: contentType });
   a.href = URL.createObjectURL(file);
   a.download = fileName;
   a.click();
-}
+};
 
-function renderMenuIcon(name: string) {
+const renderMenuIcon = (name: string) => {
   return () => h("span", null, name);
-}
+};
 
-function getUserClientType() {
+const getUserClientType = () => {
   let client = "PC";
   if (
     navigator.userAgent.match(
@@ -24,17 +27,17 @@ function getUserClientType() {
     client = "MOBILE";
   }
   return client;
-}
+};
 
-function getFullHref(href: string) {
+const getFullHref = (href: string) => {
   return href.includes("://") ? href : "//" + href;
-}
+};
 
-function getMenuOptins(myOptions: BookMarks[]) {
-  const options: MenuOption[] = myOptions.map((item) => {
+const getMenuOptins = (myOptions: BookMarks[]) => {
+  const options: MenuOption[] = myOptions.map((item, index) => {
     const option: MenuOption = {
       label: item.title,
-      key: item.title + new Date().getTime(),
+      key: encodeURI(item.title + item.link + index),
     };
     if (item.link) {
       option.href = getFullHref(item.link);
@@ -52,7 +55,7 @@ function getMenuOptins(myOptions: BookMarks[]) {
     return option;
   });
   return options;
-}
+};
 
 export {
   renderMenuIcon,

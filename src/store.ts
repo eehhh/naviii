@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 import {
-  showSider as defaultShowSider,
+  siderMode as defaultSiderMode,
   iconAPI as defaultIconAPI,
   bookMarks as defaultBookMarks,
   searchJump as defaultSearchJump,
@@ -8,7 +8,6 @@ import {
 } from "@/assets/ts/custom";
 import { LocalDB } from "@/assets/ts/db";
 import { defaultEngine } from "@/assets/ts/search";
-import type { BookMarks } from "@/assets/ts/types";
 
 const db = new LocalDB();
 const iconAPI = db.iconAPI;
@@ -17,7 +16,7 @@ const searchJump = db.searchJump;
 const openBookMarkJump = db.openBookMarkJump;
 const searchEngine = db.searchEngine;
 const isDarkTheme = db.theme == "dark" ? true : false;
-const showSider = defaultShowSider;
+const siderMode = defaultSiderMode;
 const showSettingPage = false;
 const bookMarks =
   userbookMarks && typeof userbookMarks != "string"
@@ -28,10 +27,14 @@ export const store = reactive({
   iconAPI: iconAPI ? iconAPI : defaultIconAPI,
   bookMarks: bookMarks,
   isDarkTheme: isDarkTheme,
-  showSider: showSider,
+  siderMode: siderMode,
   showSettingPage: showSettingPage,
-  changeSiderVisible() {
-    this.showSider = !this.showSider;
+  changeSiderMode() {
+    if (this.siderMode < 2) {
+      this.siderMode += 1;
+    } else {
+      this.siderMode = 0;
+    }
   },
   changeTheme() {
     this.isDarkTheme = !this.isDarkTheme;

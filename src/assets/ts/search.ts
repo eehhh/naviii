@@ -6,7 +6,7 @@ const defaultEngine = {
   label: enginesMap[defaultEngineKey][0],
 };
 
-function getSearchEngine(input: string) {
+const getSearchEngine = (input: string) => {
   const key = input.split(" ", 1)[0];
   if (key in enginesMap) {
     return {
@@ -16,9 +16,9 @@ function getSearchEngine(input: string) {
   } else {
     return defaultEngine;
   }
-}
+};
 
-function omniSearch(key: string, input: string) {
+const omniSearch = (key: string, input: string) => {
   let url = "";
   if (input) {
     const searchUrl = enginesMap[key][1];
@@ -30,6 +30,6 @@ function omniSearch(key: string, input: string) {
       window.open(encodeURI(url), store.searchJump);
     }
   }
-}
+};
 
 export { defaultEngine, getSearchEngine, omniSearch };

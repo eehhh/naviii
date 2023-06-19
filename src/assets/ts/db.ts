@@ -1,5 +1,4 @@
 import { downloadFile } from "@/assets/ts/utils";
-import type { BookMarks } from "@/assets/ts/types";
 
 class LocalDB {
   keys: string[];
