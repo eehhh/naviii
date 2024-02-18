@@ -28,7 +28,7 @@ const contentTheme = {
 const firstCardTitle = "✨ 常用";
 const cardTitlePrefix = "📎";
 
-const iconAPI = "https://toxic-olive-salmon.faviconkit.com/";
+const iconAPI = "https://api.faviconkit.com/";
 
 const enginesMap: { [key: string]: string[] } = defaultEnginesMap;
 const defaultEngineKey = "d";
